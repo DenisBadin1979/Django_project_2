@@ -1,0 +1,8 @@
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+
+class User(AbstractUser):
+    username = None
+    email = models.EmailField(unique=True, verbose_name='Почта', help_text='Укажите почту')
+    city = models.CharField(max_length=150, blank=True, null=True, verbose_name='Город', help_text='Укажите город')
+    avatar = models.ImageField(upload_to='users/avatars', blank=True, null=True, verbose_name='Аватар', help_text='Загрузите аватар')
