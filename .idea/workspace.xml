@@ -4,31 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ac0b5f4-da8d-478a-839c-c0b64c536e20" name="Changes" comment="branch 30.1 ветка">
-      <change afterPath="$PROJECT_DIR$/config/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/asgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/wsgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lms/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lms/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lms/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lms/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lms/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lms/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lms/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usres/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usres/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usres/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usres/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usres/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usres/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/usres/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Django_Project_2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Django_Project_2.iml" afterDir="false" />
+    <list default="true" id="3ac0b5f4-da8d-478a-839c-c0b64c536e20" name="Changes" comment="созданы модель user.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,13 +90,22 @@
       <option name="project" value="LOCAL" />
       <updated>1765737301127</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="созданы модель user.">
+      <option name="closed" value="true" />
+      <created>1766492656397</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1766492656397</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Создан поект main" />
     <MESSAGE value="develop ветка" />
     <MESSAGE value="branch 30.1 ветка" />
-    <option name="LAST_COMMIT_MESSAGE" value="branch 30.1 ветка" />
+    <MESSAGE value="созданы модель user." />
+    <option name="LAST_COMMIT_MESSAGE" value="созданы модель user." />
   </component>
 </project>
