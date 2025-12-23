@@ -1,11 +1,12 @@
 import os
 from pathlib import Path
 
-from django.conf.global_settings import MEDIA_URL, MEDIA_ROOT
+from django.conf.global_settings import MEDIA_URL, MEDIA_ROOT, AUTH_USER_MODEL
 from dotenv import load_dotenv
 
-load_dotenv(override=True)
+import usres.models
 
+load_dotenv(override=True)
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -16,8 +17,6 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
 
 
 INSTALLED_APPS = [
@@ -62,21 +61,19 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 
-
-
 DATABASES = {
     "default": {
-         "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": os.getenv("NAME"),
         "USER": os.getenv("USER"),
         "PASSWORD": os.getenv("PASSWORD"),
         "HOST": os.getenv("HOST"),
         "PORT": os.getenv("PORT"),
-        "OPTIONS": {"client_encoding": "UTF8",},
+        "OPTIONS": {
+            "client_encoding": "UTF8",
+        },
     }
 }
-
-
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -95,8 +92,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-
-
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -106,9 +101,9 @@ USE_I18N = True
 USE_TZ = True
 
 
-
-
 STATIC_URL = "static/"
 
 MEDIA_URL = "media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+AUTH_USER_MODEL = "usres.User"
