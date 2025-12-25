@@ -22,7 +22,7 @@ class User(AbstractUser):
         help_text="Загрузите аватар",
     )
 
-    USERNAME_FIELD = email
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     class Meta:
