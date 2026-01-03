@@ -1,11 +1,18 @@
 from rest_framework import serializers
-from rest_framework.fields import SerializerMethodField
+from rest_framework.fields import SerializerMethodField, CharField, URLField
 from rest_framework.serializers import ModelSerializer
 
 from lms.models import Course, Lesson
+from lms.validators import validate_youtube_only
 
 
 class LessonSerializer(ModelSerializer):
+    video = URLField(
+        validators=[validate_youtube_only],
+        required=False,
+        allow_blank=True
+    )
+
     class Meta:
         model = Lesson
         fields = "__all__"
