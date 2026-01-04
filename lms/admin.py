@@ -1,3 +1,31 @@
 from django.contrib import admin
 
-# Register your models here.
+from lms.models import Course, Lesson
+
+
+@admin.register(Course)
+class CourseAdmin(admin.ModelAdmin):
+    list_display = ("name", "preview", "description", "owner")
+    list_filter = (
+        "name",
+        "owner",
+    )
+    search_fields = ("owner",)
+
+
+@admin.register(Lesson)
+class LessonAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "preview",
+        "description",
+        "owner",
+        "video",
+        "course",
+        "owner",
+    )
+    list_filter = (
+        "name",
+        "owner",
+    )
+    search_fields = ("owner",)
