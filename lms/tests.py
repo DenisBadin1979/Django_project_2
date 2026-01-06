@@ -1,6 +1,8 @@
 from http.client import responses
 from unittest import TestCase
 
+from django.contrib.auth.models import Group
+from mypyc.codegen.emitmodule import Groups
 from rest_framework import response, status
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase, APIClient
@@ -11,7 +13,9 @@ from users.models import User
 
 class LmsTestCase(APITestCase):
     def setUp(self):
+        self.group = Group.objects.create(name='moders')
         self.user = User.objects.create(email="admin@test.pro")
+        self.user.groups.add(self.group)
         self.course = Course.objects.create(name="Экономика", description="Все про экономику")
         self.lesson = Lesson.objects.create(name="Введение в экономику", course=self.course, owner=self.user)
         self.client.force_authenticate(user=self.user)
