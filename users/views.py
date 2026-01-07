@@ -13,6 +13,7 @@ from rest_framework.viewsets import ModelViewSet
 
 from users.models import Payment, User
 from users.serializers import PaymentSerializer, UserSerializer
+from users.services import create_stripe_product, create_stripe_price, create_stripe_sessions
 
 
 class UserCreateAPIView(CreateAPIView):
@@ -51,14 +52,14 @@ class UserDestroyAPIView(DestroyAPIView):
     serializer_class = UserSerializer
 
 
-@method_decorator(name='list', decorator=swagger_auto_schema(
-    operation_description="Получение списка платежей"
-))
+
 class PaymentViewSet(ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
 
-
+@method_decorator(name='list', decorator=swagger_auto_schema(
+    operation_description="Получение списка платежей"
+))
 class PaymentListAPIView(ListAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
@@ -66,3 +67,19 @@ class PaymentListAPIView(ListAPIView):
     search_fields = ["payment_method"]
     ordering_fields = ["payment_date", "amount"]
     filterset_fields = ["paid_course", "paid_lesson"]
+
+@method_decorator(name='create', decorator=swagger_auto_schema(
+    operation_description="Получение платежа"
+))
+class PaymentCreateAPIView(CreateAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+
+    def perform_create(self, serializer):
+        payment = serializer.save(user=self.request.user)
+        product = create_stripe_product(payment.paid_course)  # или payment.lesson_paid
+        price = create_stripe_price(payment.amount, product.id)
+        session_id, payment_link = create_stripe_sessions(price)
+        payment.session_id = session_id
+        payment.link = payment_link
+        payment.save()

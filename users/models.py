@@ -51,6 +51,8 @@ class Payment(models.Model):
         verbose_name="Пользователь",
         help_text="Выберите пользователя",
         related_name="payments",
+        null=True,
+        blank=True,
     )
     payment_date = models.DateTimeField(
         auto_now_add=True,
@@ -86,6 +88,23 @@ class Payment(models.Model):
         choices=PAYMENT_METHOD_CHOICES,
         verbose_name="Способ оплаты",
         help_text="Выберите способ оплаты",
+        null=True,
+        blank=True,
+    )
+    session_id = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        verbose_name="Ссесия ID",
+        help_text="Введите Ссесия ID",
+    )
+
+    link = models.URLField(
+        max_length=4000,
+        null=True,
+        blank=True,
+        verbose_name="Ссылка на платеж",
+        help_text="Введите Ссылка на платеж",
     )
 
     class Meta:
