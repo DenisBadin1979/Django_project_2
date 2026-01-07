@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import permission_classes
 from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import (CreateAPIView, DestroyAPIView,
@@ -49,6 +51,9 @@ class UserDestroyAPIView(DestroyAPIView):
     serializer_class = UserSerializer
 
 
+@method_decorator(name='list', decorator=swagger_auto_schema(
+    operation_description="Получение списка платежей"
+))
 class PaymentViewSet(ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
