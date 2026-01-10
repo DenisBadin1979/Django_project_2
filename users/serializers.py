@@ -48,6 +48,8 @@ class PaymentSerializer(serializers.ModelSerializer):
             "amount",
             "payment_method",
             "payment_method_display",
+            "session_id",
+            "link",
         )
         read_only_fields = (
             "id",

@@ -8,7 +8,7 @@ from lms.views import LessonListAPIView
 from users.apps import UsersConfig
 from users.views import (PaymentListAPIView, PaymentViewSet, UserCreateAPIView,
                          UserDestroyAPIView, UserListAPIView,
-                         UserRetrieveAPIView, UserUpdateAPIView)
+                         UserRetrieveAPIView, UserUpdateAPIView, PaymentCreateAPIView)
 
 app_name = UsersConfig.name
 
@@ -18,6 +18,7 @@ router.register("", PaymentViewSet)
 urlpatterns = [
     path("register/", UserCreateAPIView.as_view(), name="register"),
     path("payments/", PaymentListAPIView.as_view(), name="payments_list"),
+    path("payments/create/", PaymentCreateAPIView.as_view(), name="payments_create"),
     path(
         "login/",
         TokenObtainPairView.as_view(permission_classes=(AllowAny,)),
