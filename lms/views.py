@@ -13,7 +13,7 @@ from lms.models import Course, Lesson, Subscription
 from lms.paginations import CustomPagination
 from lms.serializers import CourseSerializer, LessonSerializer, SubscriptionDetailSerializer
 from users.permissions import IsModer, IsModerAndUser
-
+from lms.tasks import send_update_course
 
 @method_decorator(name='list', decorator=swagger_auto_schema(
     operation_description="Список курсов с уроками"
@@ -34,6 +34,13 @@ class CourseViewSet(ModelViewSet):
         elif self.action in ["update", "retrieve"]:
             self.permission_classes = (IsModer,)
         return super().get_permissions()
+
+    def perform_update(self, serializer):
+        super().perform_update(serializer)
+        course = serializer.instance
+        subscribers = Subscription.objects.filter(course=course)
+        for subscription in subscribers:
+            send_update_course.delay(subscription.owner.email)
 
 
 class LessonCreateAPIView(CreateAPIView):

@@ -1,7 +1,5 @@
 from django.urls import path
-from rest_framework.generics import (CreateAPIView, DestroyAPIView,
-                                     ListAPIView, RetrieveAPIView,
-                                     UpdateAPIView)
+
 from rest_framework.routers import SimpleRouter
 
 from lms.apps import LmsConfig

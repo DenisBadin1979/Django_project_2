@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from lms.models import Course, Lesson
+from lms.models import Course, Lesson, Subscription
 
 
 @admin.register(Course)
@@ -26,6 +26,20 @@ class LessonAdmin(admin.ModelAdmin):
     )
     list_filter = (
         "name",
+        "owner",
+    )
+    search_fields = ("owner",)
+
+@admin.register(Subscription)
+class SubscriptionAdmin(admin.ModelAdmin):
+    list_display = (
+        "owner",
+        "course",
+        "created_at",
+        "is_active",
+    )
+    list_filter = (
+        "course",
         "owner",
     )
     search_fields = ("owner",)
