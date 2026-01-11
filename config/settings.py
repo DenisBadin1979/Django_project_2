@@ -2,6 +2,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+from celery.schedules import crontab
 from django.conf.global_settings import AUTH_USER_MODEL, MEDIA_ROOT, MEDIA_URL
 from dotenv import load_dotenv
 
@@ -155,3 +156,10 @@ EMAIL_USE_SSL = True
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")  # Ваш email на Yandex
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")  # Пароль для приложений
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CELERY_BEAT_SCHEDULE = {
+    'block-inactive-users-task': {
+        'task': 'lms.tasks.block_inactive_users',
+        'schedule': crontab(hour=0, minute=0),  # Запускать ежедневно в полночь
+    },
+}
