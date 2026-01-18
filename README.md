@@ -141,4 +141,37 @@ self.client.force_authenticate() . Документацию к этому мет
 С помощью celery-beat реализуйте фоновую задачу, которая будет проверять пользователей по дате последнего входа по полю 
 last_login и, если пользователь не заходил более месяца, блокировать его с помощью флага is_active.
 Задачу сделайте периодической и запланируйте расписание в настройках celery-beat.
-Обратите внимание на timezone вашего приложения и timezone в настройках celery: важно, чтобы они были одинаковыми, чтобы задачи запускались в корректное время.
+Обратите внимание на timezone вашего приложения и timezone в настройках celery: важно, чтобы они были одинаковыми, 
+чтобы задачи запускались в корректное время.
+
+## Запуск проекта в Docker
+Полностью автоматизированный запуск приложения (Django + PostgreSQL + Redis + Celery + Celery Beat).
+
+# Требования
+Перед запуском установите:
+Docker
+Docker Compose
+
+# Полный запуск
+Собрать контейнеры docker compose build
+Запустить проект docker compose up
+После запуска доступны сервисы:
+Сервис Порт Описание Backend (Django) 9000 API сервер PostgreSQL 5432 База данных Redis 6379 брокер Celery Celery Worker — обработка задач Celery Beat — периодические задачи
+API доступно по адресу:
+http://localhost:9000/api/
+
+# Перезапуск (без пересборки) docker compose down docker compose up
+
+# Полный сброс контейнеров и данных PostgreSQL
+(удаляет том базы)
+docker compose down -v docker compose up --build
+
+# Запуск тестов внутри контейнера docker exec -it habit_backend sh -c "pytest --ds=config.settings"
+
+# Вход в контейнер Django docker exec -it habit_backend sh
+
+# Пример структуры docker-compose.yaml (используемой в проекте) backend → порт 9000
+celery → worker
+celery_beat → scheduler
+redis → брокер
+postgres → база данных
