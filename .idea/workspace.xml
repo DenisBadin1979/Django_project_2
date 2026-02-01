@@ -4,26 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ac0b5f4-da8d-478a-839c-c0b64c536e20" name="Changes" comment="созданы модель user.">
-      <change afterPath="$PROJECT_DIR$/lms/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/users/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Django_Project_2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Django_Project_2.iml" afterDir="false" />
+    <list default="true" id="3ac0b5f4-da8d-478a-839c-c0b64c536e20" name="Changes" comment="Домашка 34_2 docker-compose.yamlверсия 1.0.">
+      <change afterPath="$PROJECT_DIR$/nginx/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/nginx/nginx.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lms/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/lms/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lms/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/lms/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usres/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/lms/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usres/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usres/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usres/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/lms/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usres/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/usres/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/usres/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +33,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DenisBadin1979&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:DenisBadin1979/Django_project_2.git&quot;,
+    &quot;accountId&quot;: &quot;aab53c91-58a4-4276-90ee-ce1d05bbc2d2&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -60,7 +60,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;branch__30__1&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;branch__34__2&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/PythonProject/Django_project_2&quot;
   }
 }</component>
@@ -157,14 +157,108 @@
       <option name="project" value="LOCAL" />
       <updated>1766493274072</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="исправлены модератор и тесты">
+      <option name="closed" value="true" />
+      <created>1767723024950</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1767723024950</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Домашка 32.2 файл README.md">
+      <option name="closed" value="true" />
+      <created>1767768278898</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1767768278898</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Домашка 32.2 фдокументация drf-yasg">
+      <option name="closed" value="true" />
+      <created>1767771179027</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1767771179027</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Домашка 32.2 версия 1.0">
+      <option name="closed" value="true" />
+      <created>1767819830787</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1767819830787</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Домашка 33 Celery README.md">
+      <option name="closed" value="true" />
+      <created>1768076202060</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1768076202060</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Домашка 33 Celery установка celery.py">
+      <option name="closed" value="true" />
+      <created>1768133457204</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1768133457204</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Домашка 33 Celery выполнено задание 1, но без доп.">
+      <option name="closed" value="true" />
+      <created>1768165146760</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1768165146760</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Домашка 33 Celery версия 1.0.">
+      <option name="closed" value="true" />
+      <created>1768165955878</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1768165955878</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Домашка 34_2 docker-compose.yamlверсия 1.0.">
+      <option name="closed" value="true" />
+      <created>1768738059885</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1768738059885</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Домашка 34_2 docker-compose.yamlверсия 1.0.">
+      <option name="closed" value="true" />
+      <created>1769103140855</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1769103140855</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="docker-compose.yaml" />
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.dockerignore" />
+    <option featureType="com.intellij.fileTypeFactory" implementationName="Dockerfile" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Создан поект main" />
     <MESSAGE value="develop ветка" />
     <MESSAGE value="branch 30.1 ветка" />
     <MESSAGE value="созданы модель user." />
-    <option name="LAST_COMMIT_MESSAGE" value="созданы модель user." />
+    <MESSAGE value="исправлены модератор и тесты" />
+    <MESSAGE value="Домашка 32.2 файл README.md" />
+    <MESSAGE value="Домашка 32.2 фдокументация drf-yasg" />
+    <MESSAGE value="Домашка 32.2 версия 1.0" />
+    <MESSAGE value="Домашка 33 Celery README.md" />
+    <MESSAGE value="Домашка 33 Celery установка celery.py" />
+    <MESSAGE value="Домашка 33 Celery выполнено задание 1, но без доп." />
+    <MESSAGE value="Домашка 33 Celery версия 1.0." />
+    <MESSAGE value="Домашка 34_2 docker-compose.yamlверсия 1.0." />
+    <option name="LAST_COMMIT_MESSAGE" value="Домашка 34_2 docker-compose.yamlверсия 1.0." />
   </component>
 </project>
