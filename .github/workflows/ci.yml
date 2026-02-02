@@ -45,13 +45,17 @@ jobs:
       run: |
         poetry install --no-interaction --no-root --with lint
 
+    - name: Create .env file
+      run: |
+         cat > .env << EOF
+         SECRET_KEY=test-secret-key-$(openssl rand -hex 32)
+         DEBUG=True
+        DATABASE_URL=postgres://postgres:postgres@localhost:5432/test_db
+        EOF      
+
 
     - name: Run migrate
-      env:
-        SECRET_KEY: 'django-insecure-temporary-key-for-testing-only-12345'
-        DEBUG: 'True'
-      run: |
-       python manage.py migrate --noinput
+      run: python manage.py migrate --noinput
 
     - name: Run tests
       run: python manage.py test
