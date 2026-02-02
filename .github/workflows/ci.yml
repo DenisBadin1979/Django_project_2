@@ -1,4 +1,4 @@
-name: Django CI
+name: Django CI/CD
 
 on: [push, pull_request]
 
@@ -6,32 +6,44 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379:6379
+
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+      REDIS_URL: redis://localhost:6379/0
+
     steps:
     - name: Check out code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.13'
 
-    - name: Cache pip
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libpq-dev python3-dev gcc
 
     - name: Install Poetry
-      run: |
-        curl -sSL https://install.python-poetry.org | python3 -
-        echo "$HOME/.local/bin" >> $GITHUB_PATH
-
-    - name: Configure Poetry
-      run: |
-        poetry config virtualenvs.create false
-        poetry config --list
+      run: pip install poetry
 
     - name: Cache dependencies
       uses: actions/cache@v4
@@ -41,43 +53,91 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-poetry-
 
+    - name: Generate Django secret key
+      run: |
+        python -c "import secrets; print(f'SECRET_KEY={secrets.token_urlsafe(50)}')" >> $GITHUB_ENV
+
+    - name: Create .env file
+      run: |
+        cat > .env << EOF
+        SECRET_KEY=${{ env.SECRET_KEY }}
+        DEBUG=True
+        DATABASE_URL=postgres://postgres:postgres@localhost:5432/test_db
+        REDIS_URL=redis://localhost:6379/0
+        CELERY_BROKER_URL=redis://localhost:6379/0
+        CELERY_RESULT_BACKEND=redis://localhost:6379/0
+        ALLOWED_HOSTS=localhost,127.0.0.1,testserver
+        EOF
+
     - name: Install dependencies
       run: |
+        poetry config virtualenvs.create false
         poetry install --no-interaction --no-root --with lint
 
+    - name: Run migrations
+      run: |
+        python manage.py migrate --noinput
 
+    - name: Run tests
+      run: |
+        python manage.py test --noinput
 
-  
-
+    - name: Run linting
+      run: |
+        black --check .
+        isort --check-only .
+        flake8 .
 
   build:
     runs-on: ubuntu-latest
     needs: test
+    # Запускаем build только для main ветки и тегов
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Log in to Docker Hub
-        run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-      - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }} .
+      - name: Extract metadata for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKER_HUB_USERNAME }}/myapp
+          tags: |
+            type=sha
+            type=ref,event=branch
+            type=ref,event=tag
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
 
-      - name: Push Docker image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
-
-      - name: Run migrate
-        run: python manage.py migrate --noinput
-
-      - name: Run tests
-        run: python manage.py test
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    # Запускаем деплой только для main ветки
+    if: github.ref == 'refs/heads/main'
 
     steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.8.1
         with:
@@ -85,9 +145,39 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no \
+            -o UserKnownHostsFile=/dev/null \
+            ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+            # Обновляем Docker образ
             docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
+            
+            # Останавливаем и удаляем старый контейнер
             docker stop myapp || true
             docker rm myapp || true
-            docker run -d --name myapp -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
+            
+            # Запускаем новый контейнер
+            docker run -d \
+              --name myapp \
+              --restart unless-stopped \
+              -p 80:8000 \
+              -e SECRET_KEY="${{ secrets.DJANGO_SECRET_KEY }}" \
+              -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
+              -e REDIS_URL="${{ secrets.REDIS_URL }}" \
+              -e DEBUG=False \
+              -e ALLOWED_HOSTS="${{ secrets.ALLOWED_HOSTS }}" \
+              ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
+            
+            # Очищаем старые образы
+            docker image prune -af
+            
+            # Ждем запуска приложения
+            sleep 10
+            
+            # Проверяем, что приложение работает
+            curl -f http://localhost:8000/health/ || exit 1
           EOF
+
+      - name: Health Check
+        run: |
+          sleep 30
+          curl -f https://${{ secrets.SERVER_DOMAIN }}/health/ || exit 1
