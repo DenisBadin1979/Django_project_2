@@ -47,11 +47,7 @@ jobs:
 
 
 
-    - name: Run migrate
-      run: python manage.py migrate --noinput
-
-    - name: Run tests
-      run: python manage.py test
+  
 
 
   build:
@@ -70,6 +66,12 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
+
+      - name: Run migrate
+        run: python manage.py migrate --noinput
+
+      - name: Run tests
+        run: python manage.py test
 
   deploy:
     runs-on: ubuntu-latest
