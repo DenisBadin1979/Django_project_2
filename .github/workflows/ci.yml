@@ -45,7 +45,10 @@ jobs:
       run: |
         poetry install --no-interaction --no-root --with lint
 
-    - name: Run migrations
+    - name: Run migration
+      run: python manage.py migrations
+
+    - name: Run migrate
       run: python manage.py migrate
 
     - name: Run tests
