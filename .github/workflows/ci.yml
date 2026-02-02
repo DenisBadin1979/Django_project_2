@@ -47,7 +47,11 @@ jobs:
 
 
     - name: Run migrate
-      run: python manage.py migrate
+      env:
+        SECRET_KEY: 'django-insecure-temporary-key-for-testing-only-12345'
+        DEBUG: 'True'
+      run: |
+       python manage.py migrate --noinput
 
     - name: Run tests
       run: python manage.py test
