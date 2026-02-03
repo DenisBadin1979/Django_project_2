@@ -3,7 +3,7 @@ from datetime import timedelta
 from pathlib import Path
 
 from celery.schedules import crontab
-from django.conf.global_settings import AUTH_USER_MODEL, MEDIA_ROOT, MEDIA_URL
+from django.conf.global_settings import AUTH_USER_MODEL, MEDIA_ROOT, MEDIA_URL, STATICFILES_DIRS, STATIC_ROOT
 from dotenv import load_dotenv
 
 # import users.models
@@ -19,7 +19,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 AUTH_USER_MODEL = "users.User"
 
@@ -123,6 +123,8 @@ USE_TZ = True
 
 
 STATIC_URL = "static/"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -135,10 +137,10 @@ SIMPLE_JWT = {
 STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
 
 # URL-адрес брокера сообщений
-CELERY_BROKER_URL = "redis://localhost:6379/0" # Например, Redis, который по умолчанию работает на порту 6379
+CELERY_BROKER_URL = "redis://redis:6379/0" # Например, Redis, который по умолчанию работает на порту 6379
 
 # URL-адрес брокера результатов, также Redis
-CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"
 
 # Часовой пояс для работы Celery
 CELERY_TIMEZONE = TIME_ZONE
