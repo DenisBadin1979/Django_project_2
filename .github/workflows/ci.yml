@@ -128,27 +128,27 @@ jobs:
                 
           
 
-      - name: Copy project files to server
-        run: |
-          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << EOF
-          DEPLOY_DIR="${{ secrets.DEPLOY_DIR }}"
-          if [ ! -d "\$DEPLOY_DIR/.git" ]; then
-          echo "Cloning repository into \$DEPLOY_DIR..."
-          git clone "https://github.com/YURIi454/mod_30.1-33.git" "\$DEPLOY_DIR"
-          fi
-          cd "\$DEPLOY_DIR"
-          git fetch origin
-          git checkout "main/develop/h_w_35.2"
-          git reset --hard "main/develop/h_w_35.2"
-          EOF
-      - name: Install dependencies on server
-        run: |
-          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << "EOF"
-          cd "${{ secrets.DEPLOY_DIR }}"
-          curl -sSL https://install.python-poetry.org | python3 -
-          ~/.local/bin/poetry lock
-          ~/.local/bin/poetry install --no-root
-          EOF
+#      - name: Copy project files to server
+#        run: |
+#          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << EOF
+#          DEPLOY_DIR="${{ secrets.DEPLOY_DIR }}"
+#          if [ ! -d "\$DEPLOY_DIR/.git" ]; then
+#          echo "Cloning repository into \$DEPLOY_DIR..."
+#          git clone "https://github.com/YURIi454/mod_30.1-33.git" "\$DEPLOY_DIR"
+#          fi
+#          cd "\$DEPLOY_DIR"
+#          git fetch origin
+#          git checkout "main/develop/h_w_35.2"
+#          git reset --hard "main/develop/h_w_35.2"
+#          EOF
+#      - name: Install dependencies on server
+#        run: |
+#          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << "EOF"
+#          cd "${{ secrets.DEPLOY_DIR }}"
+#          curl -sSL https://install.python-poetry.org | python3 -
+#          ~/.local/bin/poetry lock
+#          ~/.local/bin/poetry install --no-root
+#          EOF
       - name: Install and start Docker
         run: |
           ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << "EOF"
