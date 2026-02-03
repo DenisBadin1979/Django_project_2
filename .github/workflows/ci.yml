@@ -103,10 +103,31 @@ jobs:
     needs: build
 
     steps:
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_KEY }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH key with passphrase
+        run: |
+          # Создаем SSH ключ с паролем в памяти
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+                
+          # Создаем expect скрипт для автоматического ввода пароля
+          cat > /tmp/ssh-add.exp << 'EOF'
+          #!/usr/bin/expect
+          set timeout 20
+          spawn ssh-add $env(HOME)/.ssh/id_rsa
+          expect "Enter passphrase"
+          send "$env(SSH_PASSPHRASE)\r"
+          expect eof
+          EOF
+                
+          chmod +x /tmp/ssh-add.exp
+          SSH_PASSPHRASE="${{ secrets.SSH_PASSPHRASE }}" /tmp/ssh-add.exp
+                
+          # Проверяем, что ключ добавлен
+          ssh-add -l
 
       - name: Deploy to Server
         run: |
