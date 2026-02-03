@@ -6,20 +6,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:17
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: github_actions
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+
 
     steps:
     - name: Check out code
@@ -60,11 +47,7 @@ jobs:
       run: |
         poetry install --no-interaction --no-root --with lint
 
-    - name: Set up environment
-      run: |
-        echo "SECRET_KEY=test-key-for-ci" >> $GITHUB_ENV
-        echo "DEBUG=True" >> $GITHUB_ENV
-        echo "ALLOWED_HOSTS=localhost,127.0.0.1" >> $GITHUB_ENV    
+  
 
     - name: Run migrate
       run: python manage.py migrate
