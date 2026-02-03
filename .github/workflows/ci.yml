@@ -128,11 +128,57 @@ jobs:
                 
           
 
-      - name: Deploy to Server
+      - name: Copy project files to server
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
-            docker stop myapp || true
-            docker rm myapp || true
-            docker run -d --name myapp -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
+          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << EOF
+          DEPLOY_DIR="${{ secrets.DEPLOY_DIR }}"
+          if [ ! -d "\$DEPLOY_DIR/.git" ]; then
+          echo "Cloning repository into \$DEPLOY_DIR..."
+          git clone "https://github.com/YURIi454/mod_30.1-33.git" "\$DEPLOY_DIR"
+          fi
+          cd "\$DEPLOY_DIR"
+          git fetch origin
+          git checkout "main/develop/h_w_35.2"
+          git reset --hard "main/develop/h_w_35.2"
+          EOF
+      - name: Install dependencies on server
+        run: |
+          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << "EOF"
+          cd "${{ secrets.DEPLOY_DIR }}"
+          curl -sSL https://install.python-poetry.org | python3 -
+          ~/.local/bin/poetry lock
+          ~/.local/bin/poetry install --no-root
+          EOF
+      - name: Install and start Docker
+        run: |
+          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << "EOF"
+          curl -fsSL https://get.docker.com -o get-docker.sh
+          sh get-docker.sh
+          # Запуск Docker демона
+          sudo systemctl start docker
+          sudo systemctl enable docker
+          docker --version
+          echo "Application Docker installed"
+          EOF
+      - name: Create .env file on server
+        run: |
+          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << "EOF"
+          cd "${{ secrets.DEPLOY_DIR }}"
+          cat > .env <<EOL
+          SECRET_KEY=${{ secrets.SECRET_KEY }}
+          API_KEY_STRIPE=${{ secrets.API_KEY_STRIPE }}
+          NAME=${{ secrets.POSTGRES_DB }}
+          USER=${{ secrets.POSTGRES_USER }}
+          PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+          HOST=db
+          PORT=5432
+          EOL
+          EOF
+      - name: Install and start Docker compose
+        run: |
+          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << "EOF"
+          cd "${{ secrets.DEPLOY_DIR }}"
+          sudo docker compose down -v || true
+          sudo docker compose up -d --build
+          echo "Application started in background"
           EOF
