@@ -122,12 +122,7 @@ jobs:
           send "$env(SSH_PASSPHRASE)\r"
           expect eof
           EOF
-                
-          chmod +x /tmp/ssh-add.exp
-          SSH_PASSPHRASE="${{ secrets.SSH_PASSPHRASE }}" /tmp/ssh-add.exp
-                
-          # Проверяем, что ключ добавлен
-          ssh-add -l
+         
 
       - name: Deploy to Server
         run: |
