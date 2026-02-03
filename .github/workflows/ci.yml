@@ -5,6 +5,21 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 12345
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5  
+    
 
     steps:
     - name: Check out code
@@ -45,13 +60,25 @@ jobs:
       run: |
         poetry install --no-interaction --no-root --with lint
 
-  
-
-    - name: Run migrate
-      run: python manage.py migrate
-
+    - name: Makemigrations
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        NAME: postgres
+        USER: postgres
+        PASSWORD: 12345
+        HOST: localhost
+        PORT: 5432
+      run: poetry run python manage.py makemigrations
     - name: Run tests
-      run: python manage.py test
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        NAME: postgres
+        USER: postgres
+        PASSWORD: 12345
+        HOST: localhost
+        PORT: 5432
+      run: poetry run python manage.py test
+
 
   build:
     runs-on: ubuntu-latest
