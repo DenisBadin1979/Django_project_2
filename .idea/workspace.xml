@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ac0b5f4-da8d-478a-839c-c0b64c536e20" name="Changes" comment="Домашка 34_2 docker-compose.yamlверсия 1.0.">
-      <change afterPath="$PROJECT_DIR$/nginx/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nginx/nginx.conf" afterDir="false" />
+    <list default="true" id="3ac0b5f4-da8d-478a-839c-c0b64c536e20" name="Changes" comment="Домашка 35_2 версия 1.35">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +54,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;branch__34__2&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;branch__35__2&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/PythonProject/Django_project_2&quot;
   }
 }</component>
@@ -237,7 +231,159 @@
       <option name="project" value="LOCAL" />
       <updated>1769103140855</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Домашка 35_2 версия 1.17">
+      <option name="closed" value="true" />
+      <created>1770139107619</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1770139107619</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Домашка 35_2 версия 1.18">
+      <option name="closed" value="true" />
+      <created>1770139451616</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1770139451616</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Домашка 35_2 версия 1.19">
+      <option name="closed" value="true" />
+      <created>1770139995917</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1770139995917</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Домашка 35_2 версия 1.20">
+      <option name="closed" value="true" />
+      <created>1770140304360</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1770140304360</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Домашка 35_2 версия 1.21">
+      <option name="closed" value="true" />
+      <created>1770140706799</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1770140706799</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Домашка 35_2 версия 1.22">
+      <option name="closed" value="true" />
+      <created>1770140875967</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1770140875967</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Домашка 35_2 версия 1.23">
+      <option name="closed" value="true" />
+      <created>1770141058320</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1770141058320</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Домашка 35_2 версия 1.24">
+      <option name="closed" value="true" />
+      <created>1770143626372</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1770143626372</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Домашка 35_2 версия 1.25">
+      <option name="closed" value="true" />
+      <created>1770144040556</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1770144040556</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Домашка 35_2 версия 1.26">
+      <option name="closed" value="true" />
+      <created>1770144385966</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1770144385966</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Домашка 35_2 версия 1.27">
+      <option name="closed" value="true" />
+      <created>1770144932404</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1770144932404</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Домашка 35_2 версия 1.28">
+      <option name="closed" value="true" />
+      <created>1770145946691</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1770145946691</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Домашка 35_2 версия 1.29">
+      <option name="closed" value="true" />
+      <created>1770146116919</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1770146116919</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Домашка 35_2 версия 1.30">
+      <option name="closed" value="true" />
+      <created>1770147383680</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1770147383680</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Домашка 35_2 версия 1.31">
+      <option name="closed" value="true" />
+      <created>1770147653225</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1770147653225</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Домашка 35_2 версия 1.32">
+      <option name="closed" value="true" />
+      <created>1770147861336</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1770147861336</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Домашка 35_2 версия 1.33">
+      <option name="closed" value="true" />
+      <created>1770148092047</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1770148092047</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Домашка 35_2 версия 1.34">
+      <option name="closed" value="true" />
+      <created>1770148857293</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1770148857293</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Домашка 35_2 версия 1.35">
+      <option name="closed" value="true" />
+      <created>1770149142926</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1770149142926</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -246,19 +392,31 @@
     <option featureType="com.intellij.fileTypeFactory" implementationName="Dockerfile" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Создан поект main" />
-    <MESSAGE value="develop ветка" />
-    <MESSAGE value="branch 30.1 ветка" />
-    <MESSAGE value="созданы модель user." />
-    <MESSAGE value="исправлены модератор и тесты" />
-    <MESSAGE value="Домашка 32.2 файл README.md" />
-    <MESSAGE value="Домашка 32.2 фдокументация drf-yasg" />
     <MESSAGE value="Домашка 32.2 версия 1.0" />
     <MESSAGE value="Домашка 33 Celery README.md" />
     <MESSAGE value="Домашка 33 Celery установка celery.py" />
     <MESSAGE value="Домашка 33 Celery выполнено задание 1, но без доп." />
     <MESSAGE value="Домашка 33 Celery версия 1.0." />
     <MESSAGE value="Домашка 34_2 docker-compose.yamlверсия 1.0." />
-    <option name="LAST_COMMIT_MESSAGE" value="Домашка 34_2 docker-compose.yamlверсия 1.0." />
+    <MESSAGE value="Домашка 35_2 версия 1.17" />
+    <MESSAGE value="Домашка 35_2 версия 1.18" />
+    <MESSAGE value="Домашка 35_2 версия 1.19" />
+    <MESSAGE value="Домашка 35_2 версия 1.20" />
+    <MESSAGE value="Домашка 35_2 версия 1.21" />
+    <MESSAGE value="Домашка 35_2 версия 1.22" />
+    <MESSAGE value="Домашка 35_2 версия 1.23" />
+    <MESSAGE value="Домашка 35_2 версия 1.24" />
+    <MESSAGE value="Домашка 35_2 версия 1.25" />
+    <MESSAGE value="Домашка 35_2 версия 1.26" />
+    <MESSAGE value="Домашка 35_2 версия 1.27" />
+    <MESSAGE value="Домашка 35_2 версия 1.28" />
+    <MESSAGE value="Домашка 35_2 версия 1.29" />
+    <MESSAGE value="Домашка 35_2 версия 1.30" />
+    <MESSAGE value="Домашка 35_2 версия 1.31" />
+    <MESSAGE value="Домашка 35_2 версия 1.32" />
+    <MESSAGE value="Домашка 35_2 версия 1.33" />
+    <MESSAGE value="Домашка 35_2 версия 1.34" />
+    <MESSAGE value="Домашка 35_2 версия 1.35" />
+    <option name="LAST_COMMIT_MESSAGE" value="Домашка 35_2 версия 1.35" />
   </component>
 </project>
