@@ -5,6 +5,21 @@ on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 12345
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5  
+    
 
     steps:
     - name: Check out code
@@ -45,11 +60,29 @@ jobs:
       run: |
         poetry install --no-interaction --no-root --with lint
 
+    - name: Makemigrations
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        NAME: postgres
+        USER: postgres
+        PASSWORD: 12345
+        HOST: localhost
+        PORT: 5432
+      run: poetry run python manage.py makemigrations
+    - name: Run tests
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        NAME: postgres
+        USER: postgres
+        PASSWORD: 12345
+        HOST: localhost
+        PORT: 5432
+      run: poetry run python manage.py test
+
 
   build:
     runs-on: ubuntu-latest
     needs: test
-
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -63,27 +96,89 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
 
-      - name: Run migrate
-        run: python manage.py migrate --noinput
 
-      - name: Run tests
-        run: python manage.py test
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
 
+    env:
+      SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
     steps:
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.8.1
-        with:
-          ssh-private-key: ${{ secrets.SSH_KEY }}
-
-      - name: Deploy to Server
+      - name: Prepare SSH directory and key
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-            docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
-            docker stop myapp || true
-            docker rm myapp || true
-            docker run -d --name myapp -p 80:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/myapp:${{ github.sha }}
-          EOF
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/ssh-key-1769872474733
+          chmod 600 ~/.ssh/ssh-key-1769872474733
+      - name: Start ssh-agent and add key with passphrase
+        env:
+          SSH_PASSPHRASE: ${{ secrets.SSH_PASSPHRASE }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          eval "$(ssh-agent -s)"
+          echo "echo \"$SSH_PASSPHRASE\"" > ~/.ssh/ssh_askpass
+          chmod +x ~/.ssh/ssh_askpass
+          DISPLAY=:0 SSH_ASKPASS=~/.ssh/ssh_askpass ssh-add ~/.ssh/id_rsa
+      
+                
+          
+
+#      - name: Copy project files to server
+#        run: |
+#          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << EOF
+#          DEPLOY_DIR="${{ secrets.DEPLOY_DIR }}"
+#          if [ ! -d "\$DEPLOY_DIR/.git" ]; then
+#          echo "Cloning repository into \$DEPLOY_DIR..."
+#          git clone "https://github.com/YURIi454/mod_30.1-33.git" "\$DEPLOY_DIR"
+#          fi
+#          cd "\$DEPLOY_DIR"
+#          git fetch origin
+#          git checkout "main/develop/h_w_35.2"
+#          git reset --hard "main/develop/h_w_35.2"
+#          EOF
+#      - name: Install dependencies on server
+#        run: |
+#          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << "EOF"
+#          cd "${{ secrets.DEPLOY_DIR }}"
+#          curl -sSL https://install.python-poetry.org | python3 -
+#          ~/.local/bin/poetry lock
+#          ~/.local/bin/poetry install --no-root
+#          EOF
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_IP }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          script: |
+             curl -fsSL https://get.docker.com -o get-docker.sh
+             sh get-docker.sh
+             # Запуск Docker демона
+             sudo systemctl start docker
+             sudo systemctl enable docker
+             docker --version
+             echo "Application Docker installed"
+             cd "${{ secrets.DEPLOY_DIR }}"
+             cat > .env <<EOL
+             SECRET_KEY=${{ secrets.SECRET_KEY }}
+             API_KEY_STRIPE=${{ secrets.API_KEY_STRIPE }}
+             NAME=${{ secrets.POSTGRES_DB }}
+             USER=${{ secrets.POSTGRES_USER }}
+             PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+             HOST=db
+             PORT=5432
+             EOL
+             
+             sudo docker compose down -v || true
+             sudo docker compose up -d --build
+             echo "Application started in background"
+             
+      
+     
+      
