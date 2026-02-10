@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3ac0b5f4-da8d-478a-839c-c0b64c536e20" name="Changes" comment="Домашка 35_2 версия 1.36">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="3ac0b5f4-da8d-478a-839c-c0b64c536e20" name="Changes" comment="Домашка 35_2 версия 1.37" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -391,7 +389,15 @@
       <option name="project" value="LOCAL" />
       <updated>1770739634696</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Домашка 35_2 версия 1.37">
+      <option name="closed" value="true" />
+      <created>1770740549342</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1770740549342</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -400,7 +406,6 @@
     <option featureType="com.intellij.fileTypeFactory" implementationName="Dockerfile" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Домашка 33 Celery README.md" />
     <MESSAGE value="Домашка 33 Celery установка celery.py" />
     <MESSAGE value="Домашка 33 Celery выполнено задание 1, но без доп." />
     <MESSAGE value="Домашка 33 Celery версия 1.0." />
@@ -425,6 +430,7 @@
     <MESSAGE value="Домашка 35_2 версия 1.34" />
     <MESSAGE value="Домашка 35_2 версия 1.35" />
     <MESSAGE value="Домашка 35_2 версия 1.36" />
-    <option name="LAST_COMMIT_MESSAGE" value="Домашка 35_2 версия 1.36" />
+    <MESSAGE value="Домашка 35_2 версия 1.37" />
+    <option name="LAST_COMMIT_MESSAGE" value="Домашка 35_2 версия 1.37" />
   </component>
 </project>

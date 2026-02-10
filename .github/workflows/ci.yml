@@ -164,21 +164,21 @@ jobs:
              sudo systemctl enable docker
              docker --version
              echo "Application Docker installed"
-            cd "${{ secrets.DEPLOY_DIR }}"
-            cat > .env <<EOL
-            SECRET_KEY=${{ secrets.SECRET_KEY }}
-            API_KEY_STRIPE=${{ secrets.API_KEY_STRIPE }}
-            NAME=${{ secrets.POSTGRES_DB }}
-            USER=${{ secrets.POSTGRES_USER }}
-            PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-            HOST=db
-            PORT=5432
-            EOL
-            cd "${{ secrets.DEPLOY_DIR }}"
-            sudo docker compose down -v || true
-            sudo docker compose up -d --build
-            echo "Application started in background"
-            EOF
+             cd "${{ secrets.DEPLOY_DIR }}"
+             cat > .env <<EOL
+             SECRET_KEY=${{ secrets.SECRET_KEY }}
+             API_KEY_STRIPE=${{ secrets.API_KEY_STRIPE }}
+             NAME=${{ secrets.POSTGRES_DB }}
+             USER=${{ secrets.POSTGRES_USER }}
+             PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+             HOST=db
+             PORT=5432
+             EOL
+             cd "${{ secrets.DEPLOY_DIR }}"
+             sudo docker compose down -v || true
+             sudo docker compose up -d --build
+             echo "Application started in background"
+             EOF
       
      
       
