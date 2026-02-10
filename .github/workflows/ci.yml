@@ -149,36 +149,36 @@ jobs:
 #          ~/.local/bin/poetry lock
 #          ~/.local/bin/poetry install --no-root
 #          EOF
-      - name: Install and start Docker
-        run: |
-          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} << "EOF"
-          curl -fsSL https://get.docker.com -o get-docker.sh
-          sh get-docker.sh
-          # Запуск Docker демона
-          sudo systemctl start docker
-          sudo systemctl enable docker
-          docker --version
-          echo "Application Docker installed"
-          EOF
-      - name: Create .env file on server
-        run: |
-          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} << "EOF"
-          cd "${{ secrets.DEPLOY_DIR }}"
-          cat > .env <<EOL
-          SECRET_KEY=${{ secrets.SECRET_KEY }}
-          API_KEY_STRIPE=${{ secrets.API_KEY_STRIPE }}
-          NAME=${{ secrets.POSTGRES_DB }}
-          USER=${{ secrets.POSTGRES_USER }}
-          PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-          HOST=db
-          PORT=5432
-          EOL
-          EOF
-      - name: Install and start Docker compose
-        run: |
-          ssh -T -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }} << "EOF"
-          cd "${{ secrets.DEPLOY_DIR }}"
-          sudo docker compose down -v || true
-          sudo docker compose up -d --build
-          echo "Application started in background"
-          EOF
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_IP }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          script: |
+             curl -fsSL https://get.docker.com -o get-docker.sh
+             sh get-docker.sh
+             # Запуск Docker демона
+             sudo systemctl start docker
+             sudo systemctl enable docker
+             docker --version
+             echo "Application Docker installed"
+            cd "${{ secrets.DEPLOY_DIR }}"
+            cat > .env <<EOL
+            SECRET_KEY=${{ secrets.SECRET_KEY }}
+            API_KEY_STRIPE=${{ secrets.API_KEY_STRIPE }}
+            NAME=${{ secrets.POSTGRES_DB }}
+            USER=${{ secrets.POSTGRES_USER }}
+            PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+            HOST=db
+            PORT=5432
+            EOL
+            cd "${{ secrets.DEPLOY_DIR }}"
+            sudo docker compose down -v || true
+            sudo docker compose up -d --build
+            echo "Application started in background"
+            EOF
+      
+     
+      
