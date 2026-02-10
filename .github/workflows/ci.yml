@@ -174,7 +174,7 @@ jobs:
              HOST=db
              PORT=5432
              EOL
-             cd "${{ secrets.DEPLOY_DIR }}"
+             
              sudo docker compose down -v || true
              sudo docker compose up -d --build
              echo "Application started in background"
